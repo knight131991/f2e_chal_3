@@ -1,0 +1,23 @@
+{
+  "files": {
+    "main.css": "/knight131991/f2e_chal_3.git/static/css/main.8c8b27cf.chunk.css",
+    "main.js": "/knight131991/f2e_chal_3.git/static/js/main.53f7825c.chunk.js",
+    "main.js.map": "/knight131991/f2e_chal_3.git/static/js/main.53f7825c.chunk.js.map",
+    "runtime-main.js": "/knight131991/f2e_chal_3.git/static/js/runtime-main.ac35c397.js",
+    "runtime-main.js.map": "/knight131991/f2e_chal_3.git/static/js/runtime-main.ac35c397.js.map",
+    "static/js/2.5a779188.chunk.js": "/knight131991/f2e_chal_3.git/static/js/2.5a779188.chunk.js",
+    "static/js/2.5a779188.chunk.js.map": "/knight131991/f2e_chal_3.git/static/js/2.5a779188.chunk.js.map",
+    "static/js/3.ef9cab10.chunk.js": "/knight131991/f2e_chal_3.git/static/js/3.ef9cab10.chunk.js",
+    "static/js/3.ef9cab10.chunk.js.map": "/knight131991/f2e_chal_3.git/static/js/3.ef9cab10.chunk.js.map",
+    "index.html": "/knight131991/f2e_chal_3.git/index.html",
+    "static/css/main.8c8b27cf.chunk.css.map": "/knight131991/f2e_chal_3.git/static/css/main.8c8b27cf.chunk.css.map",
+    "static/js/2.5a779188.chunk.js.LICENSE.txt": "/knight131991/f2e_chal_3.git/static/js/2.5a779188.chunk.js.LICENSE.txt",
+    "static/media/logo.6ce24c58.svg": "/knight131991/f2e_chal_3.git/static/media/logo.6ce24c58.svg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.ac35c397.js",
+    "static/js/2.5a779188.chunk.js",
+    "static/css/main.8c8b27cf.chunk.css",
+    "static/js/main.53f7825c.chunk.js"
+  ]
+}
