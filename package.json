@@ -2,14 +2,22 @@
   "name": "f2e_chal_3",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://github.com/knight131991/f2e_chal_3.git",
+  "homepage": "https://knight131991.github.io/f2e_chal_3",
   "dependencies": {
     "@testing-library/jest-dom": "^5.15.0",
     "@testing-library/react": "^11.2.7",
     "@testing-library/user-event": "^12.8.3",
+    "antd": "^4.16.13",
+    "axios": "^0.24.0",
+    "google-map-react": "^2.1.10",
+    "jssha": "^3.2.0",
+    "query-string": "^7.0.1",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
+    "react-router": "^5.2.0",
+    "react-router-dom": "^5.2.0",
     "react-scripts": "4.0.3",
+    "styled-components": "^5.3.3",
     "web-vitals": "^1.1.2"
   },
   "scripts": {
