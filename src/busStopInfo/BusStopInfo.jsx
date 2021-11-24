@@ -1,31 +1,78 @@
 import React, { useEffect } from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import queryString from "query-string";
 import useApiAdapter from "../hooks/useApiAdapter";
 import axios from "axios";
-import { useHistory, useParams, useRouteMatch } from "react-router";
+import { useHistory } from "react-router";
+import { Spin, Steps, Tabs } from "antd";
+import calEstimatedTime from "./calEstimatedTime";
 
 function BusStopInfo(props) {
-  const { apiAdapter, isLoading, data } = useApiAdapter([]);
-  console.log(
-    window.location,
-    useHistory(),
-    { ...useParams() },
-    useRouteMatch()
-  );
-  const tt = useHistory();
+  const {
+    apiAdapter: getRouteInfo,
+    isLoading,
+    data: routeInfo,
+  } = useApiAdapter([]);
+  const {
+    apiAdapter: getEstimatedTime,
+    isLoading: loadingETime,
+    data: estimatedTime,
+  } = useApiAdapter(["", ""]);
+  const history = useHistory();
+  const { city, route } = queryString.parse(history.location.search);
+  const { TabPane } = Tabs;
+  const { Step } = Steps;
+
   useEffect(() => {
-    console.log("wwww", tt, queryString.parse(tt));
-    const { city, route } = queryString.parse(tt.location);
-    apiAdapter({
+    getRouteInfo({
       api: axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${city}/${encodeURIComponent(
+        `https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/${city}/${encodeURIComponent(
           route
         )}`
       ),
+      mapper: (resp) => resp.data.map((item) => item.Stops),
+      onSuccess: (data) => {
+        if (data.length !== 2) console.error("公車路線資訊不如預期");
+      },
     });
-  }, [tt]);
-  return <div></div>;
+  }, [getRouteInfo, city, route]);
+
+  useEffect(() => {
+    getEstimatedTime({
+      api: axios.get(
+        `https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${city}/${encodeURIComponent(
+          route
+        )}`
+      ),
+      mapper: (resp) => calEstimatedTime(resp.data),
+    });
+  }, [getEstimatedTime, city, route]);
+
+  return (
+    <Spin spinning={isLoading}>
+      <Tabs>
+        {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
+        {routeInfo.slice(0, 2).map((stops, id) => {
+          return (
+            <TabPane key={id} tab={`往 ${stops.at(-1).StopName.Zh_tw}`}>
+              <Steps direction="vertical">
+                {stops.map((stop, subId) => (
+                  <Step
+                    key={subId}
+                    title={stop.StopName.Zh_tw}
+                    description={
+                      estimatedTime[id][stop.StopName.Zh_tw] &&
+                      estimatedTime[id][stop.StopName.Zh_tw][0]
+                    }
+                  />
+                ))}
+              </Steps>
+            </TabPane>
+          );
+        })}
+      </Tabs>
+    </Spin>
+  );
 }
 
 BusStopInfo.propTypes = {};

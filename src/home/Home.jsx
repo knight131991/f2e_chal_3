@@ -7,7 +7,24 @@ function Home(props) {
   const history = useHistory();
   return (
     <div>
-      <Button>附近公車站</Button>
+      <Button
+        onClick={() => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              ({ coords: { latitude, longitude } }) => {
+                history.push({
+                  pathname: "/nearby-stations",
+                  search: `lat=${latitude}&long=${longitude}`,
+                });
+              }
+            );
+          } else {
+            console.error("Geolocation is not supported by this browser.");
+          }
+        }}
+      >
+        附近公車站
+      </Button>
       <Button onClick={() => history.push("/search-bus")}>查詢公車</Button>
     </div>
   );

@@ -6,6 +6,7 @@ import useApiAdapter from "../hooks/useApiAdapter";
 import axios from "axios";
 import cityList from "../constant/cityList";
 import { useHistory } from "react-router";
+import CommonList from "../components/commonList/CommonList";
 // import PropTypes from 'prop-types'
 
 function SearchBusPage(props) {
@@ -53,8 +54,24 @@ function SearchBusPage(props) {
           city.value
         }/${encodeURIComponent(search)}`
       ),
+      mapper: ({ data }) =>
+        data.map(
+          ({
+            DepartureStopNameZh,
+            DestinationStopNameZh,
+            RouteName: { Zh_tw },
+          }) => ({
+            title: Zh_tw,
+            desc: `${DepartureStopNameZh} 往 ${DestinationStopNameZh}`,
+            onClick: () =>
+              history.push({
+                pathname: "/bus-stop-info",
+                search: `city=${city.value}&route=${Zh_tw}`,
+              }),
+          })
+        ),
     });
-  }, [search, city.value, apiAdapter]);
+  }, [search, city.value, apiAdapter, history]);
 
   return (
     <FlexBox row>
@@ -87,31 +104,8 @@ function SearchBusPage(props) {
       <FlexBox>
         <Spin spinning={isLoading}>
           {city.label}
-          <List
-            bordered
-            dataSource={data}
-            renderItem={({
-              DepartureStopNameZh,
-              DestinationStopNameZh,
-              RouteName: { Zh_tw },
-            }) => (
-              <List.Item>
-                <FlexBox
-                  onClick={() =>
-                    history.push({
-                      pathname: "/bus-stop-info",
-                      search: `city=${city.value}&route=${Zh_tw}`,
-                    })
-                  }
-                >
-                  {Zh_tw}
-                  <FlexBox>
-                    {DepartureStopNameZh} 往 {DestinationStopNameZh}
-                  </FlexBox>
-                </FlexBox>
-              </List.Item>
-            )}
-          />
+          <CommonList dataSource={data} />
+          <List bordered dataSource={data} />
         </Spin>
       </FlexBox>
     </FlexBox>
