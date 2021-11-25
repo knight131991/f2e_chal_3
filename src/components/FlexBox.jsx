@@ -1,13 +1,13 @@
 import React from "react";
 
-const FlexBox = ({ flex, row, justify, aligm, style, wrap, gap, ...rest }) => {
+const FlexBox = ({ flex, row, justify, align, style, wrap, gap, ...rest }) => {
   return (
     <div
       style={{
         display: "flex",
         flexGrow: flex ? 1 : 0,
         justifyContent: justify,
-        alignItems: aligm,
+        alignItems: align,
         gap,
         flexDirection: row ? "row" : "column",
         flexWrap: wrap ? "wrap" : "nowrap",

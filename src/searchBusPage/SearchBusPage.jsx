@@ -7,7 +7,55 @@ import axios from "axios";
 import cityList from "../constant/cityList";
 import { useHistory } from "react-router";
 import CommonList from "../components/commonList/CommonList";
+import LogoBtn from "../components/LogoBtn";
+import styled from "styled-components";
 // import PropTypes from 'prop-types'
+
+const Container = styled(FlexBox)`
+  padding: 25px 100px;
+  background-color: #131414;
+  height: 100%;
+  color: white;
+`;
+
+const LogoBar = styled(FlexBox)`
+  gap: 10px;
+  margin-bottom: 15px;
+
+  & > input {
+    height: 40px;
+    background: #1c1d1d;
+    border-radius: 6px;
+    color: #1cc8ee;
+    border: none;
+  }
+`;
+
+const KeyboardContainer = styled(GridRow)`
+  padding: 24px 16px;
+  background-color: #1c1d1d;
+  border-radius: 10px;
+  min-height: 550px;
+  align-content: flex-start;
+
+  & > div {
+    padding: 6px;
+
+    & > button {
+      height: 40px;
+      color: white;
+      background-color: transparent;
+      border: 1px solid #1cc8ee;
+      // filter: drop-shadow(0px 0px 6px #1cc8ee) drop-shadow(0px 0px 2px #1cc8ee);
+      border-radius: 9px;
+    }
+  }
+`;
+
+const LeftContainer = styled(FlexBox)`
+  max-width: 410px;
+  margin-right: 42px;
+`;
 
 function SearchBusPage(props) {
   const history = useHistory();
@@ -75,17 +123,17 @@ function SearchBusPage(props) {
   }, [search, city.value, apiAdapter, history]);
 
   return (
-    <FlexBox row>
-      <FlexBox>
-        <FlexBox row>
-          Icon
+    <Container row>
+      <LeftContainer>
+        <LogoBar row align="end">
+          <LogoBtn />
           <Input
             value={search}
             onChange={(e) => setSearch(e.target.value)}
             ref={inputEle}
           />
-        </FlexBox>
-        <GridRow row>
+        </LogoBar>
+        <KeyboardContainer row>
           {showCitySelector
             ? cityList.map(({ value, label }) => (
                 <GridCol key={value} span={20}>
@@ -104,15 +152,15 @@ function SearchBusPage(props) {
                   <Button onClick={event}>{label}</Button>
                 </GridCol>
               ))}
-        </GridRow>
-      </FlexBox>
-      <FlexBox>
+        </KeyboardContainer>
+      </LeftContainer>
+      <FlexBox flex>
         <Spin spinning={isLoading}>
           {city.label}
           <CommonList dataSource={data} />
         </Spin>
       </FlexBox>
-    </FlexBox>
+    </Container>
   );
 }
 
