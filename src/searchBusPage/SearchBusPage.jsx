@@ -1,5 +1,5 @@
-import React, { useCallback, useEffect, useState } from "react";
-import { Button, Input, List, Spin } from "antd";
+import React, { useCallback, useEffect, useRef, useState } from "react";
+import { Button, Input, Spin } from "antd";
 import FlexBox from "../components/FlexBox";
 import { GridCol, GridRow } from "../components/grid/Grid";
 import useApiAdapter from "../hooks/useApiAdapter";
@@ -11,6 +11,7 @@ import CommonList from "../components/commonList/CommonList";
 
 function SearchBusPage(props) {
   const history = useHistory();
+  const inputEle = useRef();
   const [search, setSearch] = useState("");
   const [city, setCity] = useState(cityList[0]);
   const [showCitySelector, setShowCitySelector] = useState(false);
@@ -22,7 +23,7 @@ function SearchBusPage(props) {
 
   const keyboardItems = [
     { event: () => setShowCitySelector(true), span: 60, label: city.label },
-    { event: () => appendToSearch(""), span: 40, label: "手動輸入" },
+    { event: () => inputEle.current.focus(), span: 40, label: "手動輸入" },
     { event: () => appendToSearch("紅"), span: 20, label: "紅" },
     { event: () => appendToSearch("藍"), span: 20, label: "籃" },
     { event: () => appendToSearch("1"), span: 20, label: "1" },
@@ -78,7 +79,11 @@ function SearchBusPage(props) {
       <FlexBox>
         <FlexBox row>
           Icon
-          <Input value={search} onChange={(e) => setSearch(e.target.value)} />
+          <Input
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+            ref={inputEle}
+          />
         </FlexBox>
         <GridRow row>
           {showCitySelector
@@ -105,7 +110,6 @@ function SearchBusPage(props) {
         <Spin spinning={isLoading}>
           {city.label}
           <CommonList dataSource={data} />
-          <List bordered dataSource={data} />
         </Spin>
       </FlexBox>
     </FlexBox>
