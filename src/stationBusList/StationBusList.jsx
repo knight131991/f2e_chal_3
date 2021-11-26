@@ -5,8 +5,16 @@ import { useHistory } from "react-router";
 import useApiAdapter from "../hooks/useApiAdapter";
 import axios from "axios";
 import CommonList from "../components/commonList/CommonList";
+import FlexBox from "../components/FlexBox";
+import NavBar from "../components/NavBar";
+import styled from "styled-components";
 
-function StationBusList(props) {
+const ListContainer = styled(FlexBox)`
+  padding: ${({ bpoint }) => (bpoint === "xs" ? "24px 16px" : "40px 100px")};
+  background-color: #131414;
+`;
+
+function StationBusList({ bpoint }) {
   const history = useHistory();
   const { apiAdapter: getPTBus, isLoading, data } = useApiAdapter();
   const { city, stationId } = queryString.parse(history.location.search);
@@ -33,7 +41,14 @@ function StationBusList(props) {
     });
   }, [getPTBus, city, stationId, history]);
 
-  return <CommonList dataSource={data} />;
+  return (
+    <FlexBox>
+      <NavBar bpoint={bpoint} />
+      <ListContainer bpoint={bpoint}>
+        <CommonList dataSource={data} />;
+      </ListContainer>
+    </FlexBox>
+  );
 }
 
 StationBusList.propTypes = {};

@@ -9,6 +9,7 @@ import { useHistory } from "react-router";
 import CommonList from "../components/commonList/CommonList";
 import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
+import { ReactComponent as Del } from "../images/del.svg";
 // import PropTypes from 'prop-types'
 
 const Container = styled(FlexBox)`
@@ -91,7 +92,7 @@ function SearchBusPage(props) {
     { event: () => appendToSearch("more"), span: 20, label: "更多" },
     { event: () => appendToSearch(0), span: 20, label: "C" },
     { event: () => appendToSearch("0"), span: 20, label: "0" },
-    { event: () => setSearch(search.slice(0, -1)), span: 20, label: "Clear" },
+    { event: () => setSearch(search.slice(0, -1)), span: 20, label: <Del /> },
   ];
 
   const { apiAdapter, isLoading, data } = useApiAdapter([]);

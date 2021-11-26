@@ -6,6 +6,7 @@ import { ReactComponent as Map } from "../images/map-1.svg";
 import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
 import { useHistory } from "react-router";
+import NavBarContainer from "./NavBarContainer";
 
 const Clickable = styled.span`
   cursor: pointer;
@@ -14,21 +15,18 @@ const Clickable = styled.span`
 function NavBar(props) {
   const history = useHistory();
   return (
-    <FlexBox row justify="space-between" align="center" {...props}>
+    <NavBarContainer row justify="space-between" align="center" {...props}>
       <Clickable>
         <Back onClick={() => history.goBack()} />
       </Clickable>
-      <LogoBtn />
+      <LogoBtn bpoint={props.bpoint} />
       <Clickable>
         <Map />
       </Clickable>
-    </FlexBox>
+    </NavBarContainer>
   );
 }
 
 NavBar.propTypes = {};
 
-export default styled(NavBar)`
-  background-color: #131414;
-  padding: 25px 100px;
-`;
+export default NavBar;

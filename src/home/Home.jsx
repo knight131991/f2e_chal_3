@@ -18,14 +18,15 @@ const BGDiv = styled.div`
 
 const StyledBlueCircle = styled(BlueCircle)`
   position: absolute;
-  right: 41px;
   top: 115px;
+  right: ${({ bpoint }) => (bpoint === "xs" ? "-100px" : "41px")};
 `;
 
 const StyledWhiteCircle = styled(WhiteCircle)`
   position: absolute;
   right: 34px;
   top: 356px;
+  right: ${({ bpoint }) => (bpoint === "xs" ? "-100px" : "34px")};
 `;
 
 const StyledSpot = styled(Spot)`
@@ -42,7 +43,7 @@ const BCircleBtn = styled((props) => (
   width: 248px;
   height: 249px;
   position: absolute;
-  right: 105px;
+  right: ${({ bpoint }) => (bpoint === "xs" ? "-36px" : "105px")};
   top: 175px;
   font-weight: 500;
   font-size: 20px;
@@ -58,6 +59,7 @@ const WCircleBtn = styled((props) => (
 ))`
   position: absolute;
   right: 81px;
+  right: ${({ bpoint }) => (bpoint === "xs" ? "-53px" : "81px")};
   top: 394px;
   width: 194px;
   height: 193px;
@@ -66,22 +68,25 @@ const WCircleBtn = styled((props) => (
 
 const StyledLogo = styled((props) => <img src={logo} alt="logo" {...props} />)`
   position: absolute;
-  left: 60px;
-  top: 64px;
+  left: ${({ bpoint }) => (bpoint === "xs" ? "21px" : "60px")};
+  top: ${({ bpoint }) => (bpoint === "xs" ? "25px" : "64px")};
+  ${({ bpoint }) => bpoint === "xs" && "width: 144px; height:60px;"}
 `;
 
-function Home(props) {
+function Home({ bpoint }) {
   const history = useHistory();
   return (
     <BGDiv>
-      <StyledLogo />
-      <StyledBlueCircle />
-      <StyledWhiteCircle />
+      <StyledLogo bpoint={bpoint} />
+      <StyledBlueCircle bpoint={bpoint} />
+      <StyledWhiteCircle bpoint={bpoint} />
       <BCircleBtn
+        bpoint={bpoint}
         onClick={() => {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
               ({ coords: { latitude, longitude } }) => {
+                console.log("qqqqq");
                 history.push({
                   pathname: "/nearby-stations",
                   search: `lat=${latitude}&long=${longitude}`,
@@ -93,7 +98,7 @@ function Home(props) {
           }
         }}
       />
-      <WCircleBtn onClick={() => history.push("/search-bus")} />
+      <WCircleBtn bpoint={bpoint} onClick={() => history.push("/search-bus")} />
     </BGDiv>
   );
 }

@@ -49,7 +49,6 @@ function BusSteps(props) {
     <StyledSteps
       direction="vertical"
       progressDot={(iconDot, { index, status, title, description }) => (
-        // <Circle bg={status === index%2} />
         <Circle bg={status !== "wait"} />
       )}
       {...props}

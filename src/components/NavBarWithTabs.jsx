@@ -10,13 +10,14 @@ const StyledTabs = styled(Tabs)`
   & .ant-tabs-tabpane {
     display: flex;
     justify-content: center;
+    ${({ bpoint }) => bpoint === "xs" && "padding: 0px 16px;"}
   }
   &.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
     justify-content: center;
     background-color: #131414;
   }
   & .ant-tabs-tab {
-    min-width: 320px;
+    min-width: ${({ bpoint }) => (bpoint === "xs" ? "130px" : "320px")};
     justify-content: center;
   }
   & .ant-tabs-ink-bar.ant-tabs-ink-bar-animated {
@@ -29,7 +30,7 @@ const StyledTabs = styled(Tabs)`
 function NavBarWithTabs(props) {
   return (
     <>
-      <NavBar />
+      <NavBar bpoint={props.bpoint} />
       <StyledTabs {...props} />
     </>
   );

@@ -20,4 +20,5 @@ LogoBtn.propTypes = {};
 
 export default styled(LogoBtn)`
   cursor: pointer;
+  ${({ bpoint }) => bpoint === "xs" && "width: 96px; height:40px;"}
 `;
