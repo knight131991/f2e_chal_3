@@ -11,6 +11,10 @@ import FlexBox from "../components/FlexBox";
 import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
 
+const Container = styled(FlexBox)`
+  height: 100%;
+`;
+
 const StyledLogo = styled((props) => <LogoBtn {...props} />)`
   position: relative;
   z-index: 2;
@@ -19,6 +23,7 @@ const StyledLogo = styled((props) => <LogoBtn {...props} />)`
 const ListContainer = styled(FlexBox)`
   padding: ${({ bpoint }) => (bpoint === "xs" ? "24px 16px" : "40px 100px")};
   background-color: #131414;
+  overflow: auto;
 `;
 
 const Title = styled((props) => (
@@ -89,7 +94,7 @@ function StationNearby({ bpoint }) {
   }, [getNearbyStations, lat, long, dataSource, getPTBus, history]);
 
   return (
-    <FlexBox>
+    <Container>
       <NavBarContainer bpoint={bpoint}>
         <TitleContainer>
           <StyledLogo bpoint={bpoint} />
@@ -99,7 +104,7 @@ function StationNearby({ bpoint }) {
       <ListContainer bpoint={bpoint}>
         <CommonList dataSource={dataSource} />
       </ListContainer>
-    </FlexBox>
+    </Container>
   );
 }
 

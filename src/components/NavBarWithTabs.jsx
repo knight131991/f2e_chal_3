@@ -7,6 +7,8 @@ import styled from "styled-components";
 const StyledTabs = styled(Tabs)`
   background: #1c1d1d;
   color: #1cc8ee;
+  height: ${({ bpoint }) =>
+    `calc(100vh - ${bpoint === "xs" ? "72px" : "105px"})`};
   & .ant-tabs-tabpane {
     display: flex;
     justify-content: center;
@@ -24,6 +26,9 @@ const StyledTabs = styled(Tabs)`
     background: #1cc8ee;
     box-shadow: 0px 0px 6px #1cc8ee, 0px 0px 2px #1cc8ee;
     border-radius: 50px;
+  }
+  & .ant-tabs-content-holder {
+    overflow: auto;
   }
 `;
 

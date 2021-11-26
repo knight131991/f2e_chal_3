@@ -41,7 +41,7 @@ const KeyboardContainer = styled(GridRow)`
   min-height: ${({ bpoint }) => bpoint !== "xs" && "550px"}
   align-content: flex-start;
 
-  ${({ bpoint }) => bpoint === "xs" && "position: absolute; bottom: 0px;"}
+  // ${({ bpoint }) => bpoint === "xs" && "position: absolute; bottom: 0px;"}
 
   & > div {
     padding: 6px;
@@ -148,6 +148,7 @@ function SearchBusPage({ bpoint }) {
     </div>
   ))`
     padding: 8px 18px;
+    overflow: auto;
   `;
 
   return (

@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect } from "react";
 // import PropTypes from "prop-types";
 import queryString from "query-string";
 import { useHistory } from "react-router";
@@ -9,9 +9,14 @@ import FlexBox from "../components/FlexBox";
 import NavBar from "../components/NavBar";
 import styled from "styled-components";
 
+const Container = styled(FlexBox)`
+  height: 100%;
+`;
+
 const ListContainer = styled(FlexBox)`
   padding: ${({ bpoint }) => (bpoint === "xs" ? "24px 16px" : "40px 100px")};
   background-color: #131414;
+  overflow: auto;
 `;
 
 function StationBusList({ bpoint }) {
@@ -42,12 +47,12 @@ function StationBusList({ bpoint }) {
   }, [getPTBus, city, stationId, history]);
 
   return (
-    <FlexBox>
+    <Container>
       <NavBar bpoint={bpoint} />
       <ListContainer bpoint={bpoint}>
         <CommonList dataSource={data} />;
       </ListContainer>
-    </FlexBox>
+    </Container>
   );
 }
 
