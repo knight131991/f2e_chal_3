@@ -4,28 +4,33 @@ import queryString from "query-string";
 import useApiAdapter from "../hooks/useApiAdapter";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { Spin, Steps, Tabs } from "antd";
+import { Button, Spin, Steps, Tabs } from "antd";
 import calEstimatedTime from "./calEstimatedTime";
 import NavBarWithTabs from "../components/NavBarWithTabs";
 import TabTitle from "../components/TabTitle";
 import styled from "styled-components";
+import BusSteps from "../components/BusSteps";
+import BusStateDiv from "../components/BusStateDiv";
+import FlexBox from "../components/FlexBox";
 
 function BusStopInfo(props) {
-  const StyledSteps = styled(Steps)`
-    & .ant-steps-item.ant-steps-item-process {
-      display: flex;
-    }
-    & .ant-steps-item-container {
-      width: 100%;
-      display: flex;
-      justify-content: space-between;
-      flex-direction: row-reverse;
-    }
+  const StyledBusStateDiv = styled(BusStateDiv)`
+    margin-bottom: 14px;
+  `;
 
-    & > .ant-steps-item > .ant-steps-item-container > .ant-steps-item-tail {
-      right: 31px;
-      left: unset;
-    }
+  const SText = styled.span`
+    color: ${({ busIn }) => (busIn ? "#1CC8EE" : "white")};
+    margin-left: 12px;
+  `;
+
+  const Container = styled(FlexBox)`
+    width: 100%;
+  `;
+
+  const Text = styled(FlexBox)`
+    width: 100%;
+    max-width: 640px;
+    margin-bottom: 25px;
   `;
 
   const [count, setCount] = useState(0);
@@ -85,6 +90,12 @@ function BusStopInfo(props) {
     return () => clearInterval(counter);
   }, [count]);
 
+  const getState = useCallback((eTime) => {
+    if (eTime === "進站中") return "in";
+    if (eTime === "未發車") return "out";
+    return "normal";
+  }, []);
+
   return (
     <Spin spinning={isLoading}>
       <NavBarWithTabs>
@@ -97,19 +108,32 @@ function BusStopInfo(props) {
                 <TabTitle>{stops[stops.length - 1].StopName.Zh_tw}</TabTitle>
               }
             >
-              {`*於 ${count} 秒前更新`}
-              <StyledSteps direction="vertical">
-                {stops.map((stop, subId) => (
-                  <Step
-                    key={subId}
-                    title={stop.StopName.Zh_tw}
-                    description={
+              <Container align="center">
+                <Text align="flex-end">{`*於 ${count} 秒前更新`}</Text>
+                <BusSteps>
+                  {stops.map((stop, subId) => {
+                    const eTime =
                       estimatedTime[id][stop.StopName.Zh_tw] &&
-                      estimatedTime[id][stop.StopName.Zh_tw][0]
-                    }
-                  />
-                ))}
-              </StyledSteps>
+                      estimatedTime[id][stop.StopName.Zh_tw][0];
+                    return (
+                      <Step
+                        key={subId}
+                        status={eTime === "進站中" ? "process" : "wait"}
+                        title={
+                          <>
+                            <StyledBusStateDiv state={getState(eTime)}>
+                              {eTime}
+                            </StyledBusStateDiv>
+                            <SText busIn={eTime === "進站中"}>
+                              {stop.StopName.Zh_tw}
+                            </SText>
+                          </>
+                        }
+                      />
+                    );
+                  })}
+                </BusSteps>
+              </Container>
             </TabPane>
           );
         })}

@@ -17,7 +17,7 @@ export default function calEstimatedTime(data = []) {
   const calBusStopInfo = (status, estimatedTime) => {
     if (status === 0) {
       const time = Math.ceil(estimatedTime / 60);
-      return time ? `${time}分鐘` : "即將進站";
+      return time ? `${time}分` : "進站中";
     }
     return stopStatusMapper[status];
   };

@@ -7,6 +7,10 @@ import styled from "styled-components";
 const StyledTabs = styled(Tabs)`
   background: #1c1d1d;
   color: #1cc8ee;
+  & .ant-tabs-tabpane {
+    display: flex;
+    justify-content: center;
+  }
   &.ant-tabs > .ant-tabs-nav .ant-tabs-nav-wrap {
     justify-content: center;
     background-color: #131414;
