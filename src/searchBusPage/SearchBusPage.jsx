@@ -75,7 +75,7 @@ const List = styled((props) => (
 ))`
   padding: 8px 18px;
   overflow: auto;
-  height: calc(100% - 308px - 76px);
+  height: ${({ bpoint }) => bpoint === "xs" && "calc(100% - 308px - 76px)"};
 `;
 
 function SearchBusPage({ bpoint }) {

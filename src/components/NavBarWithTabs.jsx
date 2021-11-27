@@ -30,6 +30,9 @@ const StyledTabs = styled(Tabs)`
   & .ant-tabs-content-holder {
     overflow: auto;
   }
+  & .ant-tabs-content {
+    height: 100%;
+  }
 `;
 
 function NavBarWithTabs(props) {

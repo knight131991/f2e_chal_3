@@ -12,6 +12,7 @@ import styled from "styled-components";
 import BusSteps from "../components/BusSteps";
 import BusStateDiv from "../components/BusStateDiv";
 import FlexBox from "../components/FlexBox";
+import GMap from "../components/GMap";
 
 const StyledBusStateDiv = styled(BusStateDiv)`
   margin-bottom: 14px;
@@ -34,6 +35,7 @@ const Text = styled(FlexBox)`
 
 function BusStopInfo({ bpoint }) {
   const [count, setCount] = useState(0);
+  const [showMap, setShowMap] = useState();
   const {
     apiAdapter: getRouteInfo,
     isLoading,
@@ -98,16 +100,16 @@ function BusStopInfo({ bpoint }) {
 
   return (
     <Spin spinning={isLoading}>
-      <NavBarWithTabs bpoint={bpoint} onClickMap={() => console.log("mapppp")}>
+      <NavBarWithTabs bpoint={bpoint} onClickMap={() => setShowMap(true)}>
         {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
-        {routeInfo.slice(0, 2).map((stops, id) => {
-          return (
-            <TabPane
-              key={id}
-              tab={
-                <TabTitle>{stops[stops.length - 1].StopName.Zh_tw}</TabTitle>
-              }
-            >
+        {routeInfo.slice(0, 2).map((stops, id) => (
+          <TabPane
+            key={id}
+            tab={<TabTitle>{stops[stops.length - 1].StopName.Zh_tw}</TabTitle>}
+          >
+            {showMap ? (
+              <GMap steps={stops} />
+            ) : (
               <Container align="center">
                 <Text align="flex-end">{`*於 ${count} 秒前更新`}</Text>
                 <BusSteps bpoint={bpoint}>
@@ -134,9 +136,9 @@ function BusStopInfo({ bpoint }) {
                   })}
                 </BusSteps>
               </Container>
-            </TabPane>
-          );
-        })}
+            )}
+          </TabPane>
+        ))}
       </NavBarWithTabs>
     </Spin>
   );
