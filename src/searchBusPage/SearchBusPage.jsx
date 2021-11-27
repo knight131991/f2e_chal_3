@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useRef, useState } from "react";
-import { Button, Input, Spin } from "antd";
+import { Button, Input } from "antd";
 import FlexBox from "../components/FlexBox";
 import { GridCol, GridRow } from "../components/grid/Grid";
 import useApiAdapter from "../hooks/useApiAdapter";
@@ -9,8 +9,8 @@ import { useHistory } from "react-router";
 import CommonList from "../components/commonList/CommonList";
 import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
-import { ReactComponent as Del } from "../images/del.svg";
 import useKeyboardItems from "./useKeyboardItems";
+import CircleSpin from "../components/CircleSpin";
 // import PropTypes from 'prop-types'
 
 const Container = styled(FlexBox)`
@@ -67,10 +67,12 @@ const LeftContainer = styled(FlexBox)`
 
 const List = styled((props) => (
   <div {...props}>
-    <Spin spinning={props.isLoading}>
+    <CircleSpin
+      spinning={props.isLoading}
+    >
       {props.city}
       <CommonList dataSource={props.data} />
-    </Spin>
+    </CircleSpin>
   </div>
 ))`
   padding: 8px 18px;

@@ -10,6 +10,8 @@ import NavBarContainer from "../components/NavBarContainer";
 import FlexBox from "../components/FlexBox";
 import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
+import CircleSpin from "../components/CircleSpin";
+import { useState } from "react/cjs/react.development";
 
 const Container = styled(FlexBox)`
   height: 100%;
@@ -51,11 +53,11 @@ const TitleContainer = styled.div`
 
 function StationNearby({ bpoint }) {
   const history = useHistory();
-  const { apiAdapter: getNearbyStations, isLoading: gettingNBStations } =
-    useApiAdapter();
-  const { apiAdapter: getPTBus, isLoading } = useApiAdapter();
+  const { apiAdapter: getNearbyStations } = useApiAdapter();
+  const { apiAdapter: getPTBus } = useApiAdapter();
   const { lat, long } = queryString.parse(history.location.search);
   const dataSource = useMemo(() => [], []);
+  const [loaded, setLoaded] = useState();
 
   useEffect(() => {
     getNearbyStations({
@@ -94,6 +96,7 @@ function StationNearby({ bpoint }) {
                     search: `city=${city}&stationId=${stationId}`,
                   }),
               });
+              setLoaded(true);
             },
           });
         });
@@ -109,8 +112,10 @@ function StationNearby({ bpoint }) {
           <Title bpoint={bpoint} />
         </TitleContainer>
       </NavBarContainer>
-      <ListContainer bpoint={bpoint}>
-        <CommonList dataSource={dataSource} />
+      <ListContainer bpoint={bpoint} flex>
+        <CircleSpin spinning={!loaded}>
+          {loaded && <CommonList dataSource={dataSource} />}
+        </CircleSpin>
       </ListContainer>
     </Container>
   );

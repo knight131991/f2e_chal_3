@@ -3,3 +3,25 @@
     overflow: hidden;
     /* background-color: #131414; */
 }
+
+.ant-spin-blur::after {
+    opacity: 0.5;
+}
+
+.ant-spin-blur {
+    background-color: black;
+    opacity: 0.5;
+}
+
+.ant-spin-container {
+    transition: none;
+    background-color: transparent;
+}
+
+.ant-spin-container::after {
+    background-color: #131414;
+}
+
+.ant-spin-nested-loading {
+    background-color: #131414;
+}

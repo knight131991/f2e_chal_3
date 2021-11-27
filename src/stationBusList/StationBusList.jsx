@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import queryString from "query-string";
 import { useHistory } from "react-router";
@@ -8,6 +8,7 @@ import CommonList from "../components/commonList/CommonList";
 import FlexBox from "../components/FlexBox";
 import NavBar from "../components/NavBar";
 import styled from "styled-components";
+import CircleSpin from "../components/CircleSpin";
 
 const Container = styled(FlexBox)`
   height: 100%;
@@ -21,8 +22,9 @@ const ListContainer = styled(FlexBox)`
 
 function StationBusList({ bpoint }) {
   const history = useHistory();
-  const { apiAdapter: getPTBus, isLoading, data } = useApiAdapter();
+  const { apiAdapter: getPTBus, data } = useApiAdapter();
   const { city, stationId } = queryString.parse(history.location.search);
+  const [loaded, setLoaded] = useState();
 
   useEffect(() => {
     getPTBus({
@@ -43,14 +45,17 @@ function StationBusList({ bpoint }) {
           })
         );
       },
+      onSuccess: () => setLoaded(true),
     });
   }, [getPTBus, city, stationId, history]);
 
   return (
     <Container>
       <NavBar bpoint={bpoint} />
-      <ListContainer bpoint={bpoint}>
-        <CommonList dataSource={data} />;
+      <ListContainer bpoint={bpoint} flex>
+        <CircleSpin spinning={!loaded}>
+          {loaded && <CommonList dataSource={data} />}
+        </CircleSpin>
       </ListContainer>
     </Container>
   );

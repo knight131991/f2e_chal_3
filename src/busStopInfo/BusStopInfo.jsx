@@ -4,7 +4,7 @@ import queryString from "query-string";
 import useApiAdapter from "../hooks/useApiAdapter";
 import axios from "axios";
 import { useHistory } from "react-router";
-import { Spin, Steps, Tabs } from "antd";
+import { Steps, Tabs } from "antd";
 import calEstimatedTime from "./calEstimatedTime";
 import NavBarWithTabs from "../components/NavBarWithTabs";
 import TabTitle from "../components/TabTitle";
@@ -13,6 +13,7 @@ import BusSteps from "../components/BusSteps";
 import BusStateDiv from "../components/BusStateDiv";
 import FlexBox from "../components/FlexBox";
 import GMap from "../components/GMap";
+import CircleSpin from "../components/CircleSpin";
 
 const StyledBusStateDiv = styled(BusStateDiv)`
   margin-bottom: 14px;
@@ -99,7 +100,7 @@ function BusStopInfo({ bpoint }) {
   }, []);
 
   return (
-    <Spin spinning={isLoading}>
+    <CircleSpin spinning={isLoading}>
       <NavBarWithTabs bpoint={bpoint} onClickMap={() => setShowMap(true)}>
         {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
         {routeInfo.slice(0, 2).map((stops, id) => (
@@ -140,7 +141,7 @@ function BusStopInfo({ bpoint }) {
           </TabPane>
         ))}
       </NavBarWithTabs>
-    </Spin>
+    </CircleSpin>
   );
 }
 
