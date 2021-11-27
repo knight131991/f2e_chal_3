@@ -42,10 +42,10 @@ const KeyboardContainer = styled(GridRow)`
   align-content: flex-start;
 
   // ${({ bpoint }) => bpoint === "xs" && "position: absolute; bottom: 0px;"}
-
+  
   & > div {
     padding: 6px;
-
+    
     & > button {
       height: 40px;
       color: white;
@@ -53,6 +53,8 @@ const KeyboardContainer = styled(GridRow)`
       border: 1px solid #1cc8ee;
       // filter: drop-shadow(0px 0px 6px #1cc8ee) drop-shadow(0px 0px 2px #1cc8ee);
       border-radius: 9px;
+      ${({ bpoint }) => bpoint === "xs" && "padding: 0px 7px; font-size: 13px;"}
+      
     }
   }
 `;
@@ -105,15 +107,14 @@ function SearchBusPage({ bpoint }) {
     });
   }, [search, city.value, apiAdapter, history]);
 
-  const LogoBarComponent = ({ bpoint }) => (
-    <LogoBar row align="end" bpoint={bpoint}>
-      <LogoBtn bpoint={bpoint} />
-      <Input
-        value={search}
-        onChange={(e) => setSearch(e.target.value)}
-        ref={inputEle}
-      />
-    </LogoBar>
+  const LogoBarComponent = useCallback(
+    ({ bpoint, search, inputEle, onInputChange }) => (
+      <LogoBar row align="end" bpoint={bpoint}>
+        <LogoBtn bpoint={bpoint} />
+        <Input value={search} onChange={onInputChange} ref={inputEle} />
+      </LogoBar>
+    ),
+    []
   );
 
   const KeyboardComponent = ({ bpoint }) => (
@@ -149,20 +150,31 @@ function SearchBusPage({ bpoint }) {
   ))`
     padding: 8px 18px;
     overflow: auto;
+    height: calc(100% - 308px - 76px);
   `;
 
   return (
     <Container row={bpoint !== "xs"} bpoint={bpoint}>
       {bpoint === "xs" ? (
         <>
-          <LogoBarComponent bpoint={bpoint} />
+          <LogoBarComponent
+            bpoint={bpoint}
+            search={search}
+            inputEle={inputEle}
+            onInputChange={(e) => setSearch(e.target.value)}
+          />
           <List bpoint={bpoint} />
           <KeyboardComponent bpoint={bpoint} />
         </>
       ) : (
         <>
           <LeftContainer>
-            <LogoBarComponent />
+            <LogoBarComponent
+              bpoint={bpoint}
+              search={search}
+              inputEle={inputEle}
+              onInputChange={(e) => setSearch(e.target.value)}
+            />
             <KeyboardComponent />
           </LeftContainer>
           <FlexBox flex>
