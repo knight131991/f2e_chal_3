@@ -69,6 +69,14 @@ function StationNearby({ bpoint }) {
           cityCode: LocationCityCode,
         })),
       onSuccess: (stations) => {
+        if (
+          !cityList.find((item) =>
+            stations.map(({ cityCode }) => cityCode).includes(item.code)
+          )
+        ) {
+          alert("目前無法確認您所在的城市");
+          return;
+        }
         stations.forEach(({ title, stationId, cityCode }) => {
           const city = cityList.find((item) => item.code === cityCode).value;
           getPTBus({

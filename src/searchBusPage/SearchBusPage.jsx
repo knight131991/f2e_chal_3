@@ -53,14 +53,15 @@ const KeyboardContainer = styled(GridRow)`
       border: 1px solid #1cc8ee;
       // filter: drop-shadow(0px 0px 6px #1cc8ee) drop-shadow(0px 0px 2px #1cc8ee);
       border-radius: 9px;
-      ${({ bpoint }) => bpoint === "xs" && "padding: 0px 7px; font-size: 13px;"}
+      padding: 0px 7px; 
+      font-size: 13px;
       
     }
   }
 `;
 
 const LeftContainer = styled(FlexBox)`
-  max-width: 410px;
+  max-width: 380px;
   margin-right: 42px;
 `;
 

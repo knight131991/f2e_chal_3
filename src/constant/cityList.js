@@ -1,6 +1,6 @@
 const cityList = [
   { label: "臺北市",code: 'TPE', value: "Taipei" },
-  { label: "新北市",code: 'NTPC', value: "NewTaipei" },
+  { label: "新北市",code: 'NWT', value: "NewTaipei" },
   { label: "桃園市",code: 'TYN', value: "Taoyuan" },
   { label: "臺中市",code: 'TXG', value: "Taichung" },
   { label: "臺南市",code: 'TNN', value: "Tainan" },
