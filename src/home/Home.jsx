@@ -17,13 +17,13 @@ const BGDiv = styled.div`
 `;
 
 const StyledBlueCircle = styled(BlueCircle)`
-  position: absolute;
+  position: fixed;
   top: 115px;
   right: ${({ bpoint }) => (bpoint === "xs" ? "-100px" : "41px")};
 `;
 
 const StyledWhiteCircle = styled(WhiteCircle)`
-  position: absolute;
+  position: fixed;
   right: 34px;
   top: 356px;
   right: ${({ bpoint }) => (bpoint === "xs" ? "-100px" : "34px")};
@@ -42,7 +42,7 @@ const BCircleBtn = styled((props) => (
 ))`
   width: 248px;
   height: 249px;
-  position: absolute;
+  position: fixed;
   right: ${({ bpoint }) => (bpoint === "xs" ? "-36px" : "105px")};
   top: 175px;
   font-weight: 500;
@@ -57,7 +57,7 @@ const WCircleBtn = styled((props) => (
     搜尋公車
   </FlexBox>
 ))`
-  position: absolute;
+  position: fixed;
   right: 81px;
   right: ${({ bpoint }) => (bpoint === "xs" ? "-53px" : "81px")};
   top: 394px;
@@ -67,7 +67,7 @@ const WCircleBtn = styled((props) => (
 `;
 
 const StyledLogo = styled((props) => <img src={logo} alt="logo" {...props} />)`
-  position: absolute;
+  position: fixed;
   left: ${({ bpoint }) => (bpoint === "xs" ? "21px" : "60px")};
   top: ${({ bpoint }) => (bpoint === "xs" ? "25px" : "64px")};
   ${({ bpoint }) => bpoint === "xs" && "width: 144px; height:60px;"}
