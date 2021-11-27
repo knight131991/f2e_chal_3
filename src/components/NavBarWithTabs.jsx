@@ -38,7 +38,11 @@ const StyledTabs = styled(Tabs)`
 function NavBarWithTabs(props) {
   return (
     <>
-      <NavBar bpoint={props.bpoint} onClickMap={props.onClickMap} />
+      <NavBar
+        bpoint={props.bpoint}
+        onClickMap={props.onClickMap}
+        customMap={props.customMap}
+      />
       <StyledTabs {...props} />
     </>
   );

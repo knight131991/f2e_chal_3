@@ -93,7 +93,9 @@ function StationNearby({ bpoint }) {
                 onClick: () =>
                   history.push({
                     pathname: "/station-bus-list",
-                    search: `city=${city}&stationId=${stationId}`,
+                    search: `city=${city}&stationId=${stationId}&station=${encodeURIComponent(
+                      title
+                    )}`,
                   }),
               });
               setLoaded(true);

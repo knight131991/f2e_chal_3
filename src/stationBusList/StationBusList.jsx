@@ -20,10 +20,17 @@ const ListContainer = styled(FlexBox)`
   overflow: auto;
 `;
 
+const StationName = styled.span`
+  color: white;
+  font-size: 16px;
+`;
+
 function StationBusList({ bpoint }) {
   const history = useHistory();
   const { apiAdapter: getPTBus, data } = useApiAdapter();
-  const { city, stationId } = queryString.parse(history.location.search);
+  const { city, stationId, station } = queryString.parse(
+    history.location.search
+  );
   const [loaded, setLoaded] = useState();
 
   useEffect(() => {
@@ -51,7 +58,10 @@ function StationBusList({ bpoint }) {
 
   return (
     <Container>
-      <NavBar bpoint={bpoint} />
+      <NavBar
+        bpoint={bpoint}
+        customMap={<StationName>{station}</StationName>}
+      />
       <ListContainer bpoint={bpoint} flex>
         <CircleSpin spinning={!loaded}>
           {loaded && <CommonList dataSource={data} />}

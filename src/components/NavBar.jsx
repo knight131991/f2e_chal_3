@@ -21,7 +21,7 @@ function NavBar(props) {
       </Clickable>
       <LogoBtn bpoint={props.bpoint} />
       <Clickable onClick={props.onClickMap}>
-        <Map />
+        {props.customMap ? props.customMap : <Map />}
       </Clickable>
     </NavBarContainer>
   );
