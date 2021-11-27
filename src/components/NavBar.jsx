@@ -20,7 +20,7 @@ function NavBar(props) {
         <Back onClick={() => history.goBack()} />
       </Clickable>
       <LogoBtn bpoint={props.bpoint} />
-      <Clickable>
+      <Clickable onClick={props.onClickMap}>
         <Map />
       </Clickable>
     </NavBarContainer>

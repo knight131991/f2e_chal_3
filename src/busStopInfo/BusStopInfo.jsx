@@ -13,26 +13,26 @@ import BusSteps from "../components/BusSteps";
 import BusStateDiv from "../components/BusStateDiv";
 import FlexBox from "../components/FlexBox";
 
+const StyledBusStateDiv = styled(BusStateDiv)`
+  margin-bottom: 14px;
+`;
+
+const SText = styled.span`
+  color: ${({ busIn }) => (busIn ? "#1CC8EE" : "white")};
+  margin-left: 12px;
+`;
+
+const Container = styled(FlexBox)`
+  width: 100%;
+`;
+
+const Text = styled(FlexBox)`
+  width: 100%;
+  max-width: 640px;
+  margin-bottom: 25px;
+`;
+
 function BusStopInfo({ bpoint }) {
-  const StyledBusStateDiv = styled(BusStateDiv)`
-    margin-bottom: 14px;
-  `;
-
-  const SText = styled.span`
-    color: ${({ busIn }) => (busIn ? "#1CC8EE" : "white")};
-    margin-left: 12px;
-  `;
-
-  const Container = styled(FlexBox)`
-    width: 100%;
-  `;
-
-  const Text = styled(FlexBox)`
-    width: 100%;
-    max-width: 640px;
-    margin-bottom: 25px;
-  `;
-
   const [count, setCount] = useState(0);
   const {
     apiAdapter: getRouteInfo,
@@ -98,7 +98,7 @@ function BusStopInfo({ bpoint }) {
 
   return (
     <Spin spinning={isLoading}>
-      <NavBarWithTabs bpoint={bpoint}>
+      <NavBarWithTabs bpoint={bpoint} onClickMap={() => console.log("mapppp")}>
         {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
         {routeInfo.slice(0, 2).map((stops, id) => {
           return (

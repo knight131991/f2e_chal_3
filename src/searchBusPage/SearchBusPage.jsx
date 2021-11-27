@@ -65,6 +65,19 @@ const LeftContainer = styled(FlexBox)`
   margin-right: 42px;
 `;
 
+const List = styled((props) => (
+  <div {...props}>
+    <Spin spinning={props.isLoading}>
+      {props.city}
+      <CommonList dataSource={props.data} />
+    </Spin>
+  </div>
+))`
+  padding: 8px 18px;
+  overflow: auto;
+  height: calc(100% - 308px - 76px);
+`;
+
 function SearchBusPage({ bpoint }) {
   const history = useHistory();
   const inputEle = useRef();
@@ -141,19 +154,6 @@ function SearchBusPage({ bpoint }) {
     </KeyboardContainer>
   );
 
-  const List = styled((props) => (
-    <div {...props}>
-      <Spin spinning={isLoading}>
-        {city.label}
-        <CommonList dataSource={data} />
-      </Spin>
-    </div>
-  ))`
-    padding: 8px 18px;
-    overflow: auto;
-    height: calc(100% - 308px - 76px);
-  `;
-
   return (
     <Container row={bpoint !== "xs"} bpoint={bpoint}>
       {bpoint === "xs" ? (
@@ -164,7 +164,12 @@ function SearchBusPage({ bpoint }) {
             inputEle={inputEle}
             onInputChange={(e) => setSearch(e.target.value)}
           />
-          <List bpoint={bpoint} />
+          <List
+            bpoint={bpoint}
+            isLoading={isLoading}
+            city={city.label}
+            data={data}
+          />
           <KeyboardComponent bpoint={bpoint} />
         </>
       ) : (
@@ -179,7 +184,12 @@ function SearchBusPage({ bpoint }) {
             <KeyboardComponent />
           </LeftContainer>
           <FlexBox flex>
-            <List />
+            <List
+              bpoint={bpoint}
+              isLoading={isLoading}
+              city={city.label}
+              data={data}
+            />
           </FlexBox>
         </>
       )}
