@@ -1,6 +1,4 @@
-import React from "react";
-import PropTypes from "prop-types";
-import FlexBox from "./FlexBox";
+import React, { useCallback } from "react";
 import { ReactComponent as Back } from "../images/back.svg";
 import { ReactComponent as Map } from "../images/map-1.svg";
 import LogoBtn from "../components/LogoBtn";
@@ -14,10 +12,11 @@ const Clickable = styled.span`
 
 function NavBar(props) {
   const history = useHistory();
+  const defaultClickBack = useCallback(() => history.goBack(), [history]);
   return (
     <NavBarContainer row justify="space-between" align="center" {...props}>
       <Clickable>
-        <Back onClick={() => history.goBack()} />
+        <Back onClick={props.onClickBack || defaultClickBack} />
       </Clickable>
       <LogoBtn bpoint={props.bpoint} />
       <Clickable onClick={props.onClickMap}>

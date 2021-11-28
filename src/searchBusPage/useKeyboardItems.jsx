@@ -33,7 +33,7 @@ export default function useKeyboardItems(
     { event: () => appendToSearch("9"), span: 20, label: "9" },
     { event: () => appendToSearch("幹線"), span: 20, label: "幹線" },
     { event: () => appendToSearch("more"), span: 20, label: "更多" },
-    { event: () => appendToSearch(0), span: 20, label: "C" },
+    { event: () => appendToSearch("C"), span: 20, label: "C" },
     { event: () => appendToSearch("0"), span: 20, label: "0" },
     { event: () => setSearch(search.slice(0, -1)), span: 20, label: <Del /> },
   ];

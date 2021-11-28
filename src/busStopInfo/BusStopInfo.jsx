@@ -111,6 +111,7 @@ function BusStopInfo({ bpoint }) {
         bpoint={bpoint}
         customMap={showMap && <HiddenMap />}
         onClickMap={() => setShowMap(true)}
+        onClickBack={showMap ? () => setShowMap(false) : undefined}
       >
         {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
         {routeInfo.slice(0, 2).map((stops, id) => (

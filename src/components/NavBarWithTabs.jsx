@@ -42,6 +42,7 @@ function NavBarWithTabs(props) {
         bpoint={props.bpoint}
         onClickMap={props.onClickMap}
         customMap={props.customMap}
+        onClickBack={props.onClickBack}
       />
       <StyledTabs {...props} />
     </>
