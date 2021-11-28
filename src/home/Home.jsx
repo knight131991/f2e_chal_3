@@ -100,6 +100,8 @@ function Home({ bpoint }) {
             );
           } else {
             console.error("Geolocation is not supported by this browser.");
+            alert("無法取得您所在的位置");
+            return;
           }
         }}
       />

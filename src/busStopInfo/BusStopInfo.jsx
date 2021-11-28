@@ -100,7 +100,8 @@ function BusStopInfo({ bpoint }) {
 
   const getState = useCallback((eTime) => {
     if (eTime === "進站中") return "in";
-    if (eTime === "未發車") return "out";
+    if (eTime === "未發車" || eTime === "今日未營運" || eTime === "末班車已過")
+      return "out";
     return "normal";
   }, []);
 
