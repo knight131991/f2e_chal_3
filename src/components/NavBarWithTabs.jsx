@@ -8,7 +8,7 @@ const StyledTabs = styled(Tabs)`
   background: #1c1d1d;
   color: #1cc8ee;
   height: ${({ bpoint }) =>
-    `calc(100vh - ${bpoint === "xs" ? "72px" : "105px"})`};
+    `calc(100% - ${bpoint === "xs" ? "72px" : "105px"})`};
   & .ant-tabs-tabpane {
     display: flex;
     justify-content: center;

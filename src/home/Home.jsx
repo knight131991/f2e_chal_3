@@ -84,29 +84,36 @@ function Home() {
   const [bpoint] = useBreakPoint();
   return (
     <BGDiv>
-      <StyledLogo bpoint={bpoint} />
-      <StyledBlueCircle bpoint={bpoint} />
-      <StyledWhiteCircle bpoint={bpoint} />
-      <BCircleBtn
-        bpoint={bpoint}
-        onClick={() => {
-          if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(
-              ({ coords: { latitude, longitude } }) => {
-                history.push({
-                  pathname: "/nearby-stations",
-                  search: `lat=${latitude}&long=${longitude}`,
-                });
+      {bpoint && (
+        <>
+          <StyledLogo bpoint={bpoint} />
+          <StyledBlueCircle bpoint={bpoint} />
+          <StyledWhiteCircle bpoint={bpoint} />
+          <BCircleBtn
+            bpoint={bpoint}
+            onClick={() => {
+              if (navigator.geolocation) {
+                navigator.geolocation.getCurrentPosition(
+                  ({ coords: { latitude, longitude } }) => {
+                    history.push({
+                      pathname: "/nearby-stations",
+                      search: `lat=${latitude}&long=${longitude}`,
+                    });
+                  }
+                );
+              } else {
+                console.error("Geolocation is not supported by this browser.");
+                alert("無法取得您所在的位置");
+                return;
               }
-            );
-          } else {
-            console.error("Geolocation is not supported by this browser.");
-            alert("無法取得您所在的位置");
-            return;
-          }
-        }}
-      />
-      <WCircleBtn bpoint={bpoint} onClick={() => history.push("/search-bus")} />
+            }}
+          />
+          <WCircleBtn
+            bpoint={bpoint}
+            onClick={() => history.push("/search-bus")}
+          />
+        </>
+      )}
     </BGDiv>
   );
 }

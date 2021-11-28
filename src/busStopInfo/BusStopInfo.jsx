@@ -26,7 +26,7 @@ const SText = styled.span`
   margin-left: 12px;
 `;
 
-const Container = styled(FlexBox)`
+const ListContainer = styled(FlexBox)`
   width: 100%;
 `;
 
@@ -38,6 +38,16 @@ const Text = styled(FlexBox)`
 
 const HiddenMap = styled(Map)`
   visibility: hidden;
+`;
+
+const Container = styled.div`
+  height: 100%;
+  & .ant-spin-container {
+    height: 100%;
+  }
+  & .ant-spin-nested-loading {
+    height: 100%;
+  }
 `;
 
 function BusStopInfo() {
@@ -108,53 +118,57 @@ function BusStopInfo() {
   }, []);
 
   return (
-    <CircleSpin spinning={isLoading}>
-      <NavBarWithTabs
-        bpoint={bpoint}
-        customMap={showMap && <HiddenMap />}
-        onClickMap={() => setShowMap(true)}
-        onClickBack={showMap ? () => setShowMap(false) : undefined}
-      >
-        {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
-        {routeInfo.slice(0, 2).map((stops, id) => (
-          <TabPane
-            key={id}
-            tab={<TabTitle>{stops[stops.length - 1].StopName.Zh_tw}</TabTitle>}
-          >
-            {showMap ? (
-              <GMap steps={stops} bpoint={bpoint} />
-            ) : (
-              <Container align="center">
-                <Text align="flex-end">{`*於 ${count} 秒前更新`}</Text>
-                <BusSteps bpoint={bpoint}>
-                  {stops.map((stop, subId) => {
-                    const eTime =
-                      estimatedTime[id][stop.StopName.Zh_tw] &&
-                      estimatedTime[id][stop.StopName.Zh_tw][0];
-                    return (
-                      <Step
-                        key={subId}
-                        status={eTime === "進站中" ? "process" : "wait"}
-                        title={
-                          <>
-                            <StyledBusStateDiv state={getState(eTime)}>
-                              {eTime}
-                            </StyledBusStateDiv>
-                            <SText busIn={eTime === "進站中"}>
-                              {stop.StopName.Zh_tw}
-                            </SText>
-                          </>
-                        }
-                      />
-                    );
-                  })}
-                </BusSteps>
-              </Container>
-            )}
-          </TabPane>
-        ))}
-      </NavBarWithTabs>
-    </CircleSpin>
+    <Container>
+      <CircleSpin spinning={isLoading}>
+        <NavBarWithTabs
+          bpoint={bpoint}
+          customMap={showMap && <HiddenMap />}
+          onClickMap={() => setShowMap(true)}
+          onClickBack={showMap ? () => setShowMap(false) : undefined}
+        >
+          {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
+          {routeInfo.slice(0, 2).map((stops, id) => (
+            <TabPane
+              key={id}
+              tab={
+                <TabTitle>{stops[stops.length - 1].StopName.Zh_tw}</TabTitle>
+              }
+            >
+              {showMap ? (
+                <GMap steps={stops} bpoint={bpoint} />
+              ) : (
+                <ListContainer align="center">
+                  <Text align="flex-end">{`*於 ${count} 秒前更新`}</Text>
+                  <BusSteps bpoint={bpoint}>
+                    {stops.map((stop, subId) => {
+                      const eTime =
+                        estimatedTime[id][stop.StopName.Zh_tw] &&
+                        estimatedTime[id][stop.StopName.Zh_tw][0];
+                      return (
+                        <Step
+                          key={subId}
+                          status={eTime === "進站中" ? "process" : "wait"}
+                          title={
+                            <>
+                              <StyledBusStateDiv state={getState(eTime)}>
+                                {eTime}
+                              </StyledBusStateDiv>
+                              <SText busIn={eTime === "進站中"}>
+                                {stop.StopName.Zh_tw}
+                              </SText>
+                            </>
+                          }
+                        />
+                      );
+                    })}
+                  </BusSteps>
+                </ListContainer>
+              )}
+            </TabPane>
+          ))}
+        </NavBarWithTabs>
+      </CircleSpin>
+    </Container>
   );
 }
 
