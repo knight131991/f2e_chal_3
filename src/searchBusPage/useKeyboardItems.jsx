@@ -17,7 +17,7 @@ export default function useKeyboardItems(
     { event: () => setShowCitySelector(true), span: 60, label: city.label },
     { event: () => inputEle.current.focus(), span: 40, label: "手動輸入" },
     { event: () => appendToSearch("紅"), span: 20, label: "紅" },
-    { event: () => appendToSearch("藍"), span: 20, label: "籃" },
+    { event: () => appendToSearch("藍"), span: 20, label: "藍" },
     { event: () => appendToSearch("1"), span: 20, label: "1" },
     { event: () => appendToSearch("2"), span: 20, label: "2" },
     { event: () => appendToSearch("3"), span: 20, label: "3" },

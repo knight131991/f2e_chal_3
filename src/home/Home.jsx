@@ -99,11 +99,12 @@ function Home() {
                       pathname: "/nearby-stations",
                       search: `lat=${latitude}&long=${longitude}`,
                     });
-                  }
+                  },
+                  () => alert("無法取得您所在的位置")
                 );
               } else {
                 console.error("Geolocation is not supported by this browser.");
-                alert("無法取得您所在的位置");
+                alert("此瀏覽器不支援所在位置的功能");
                 return;
               }
             }}
