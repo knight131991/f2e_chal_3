@@ -1,7 +1,8 @@
 .App {
     height: 100vh;
+    max-height: -webkit-fill-available;
     overflow: hidden;
-    /* background-color: #131414; */
+    background: radial-gradient(86.64% 87.21% at 14.72% 0%, #414242 0%, #0A0A0B 100%);
 }
 
 .ant-spin-blur::after {

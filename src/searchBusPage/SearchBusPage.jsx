@@ -55,6 +55,9 @@ const KeyboardContainer = styled(GridRow)`
       border-radius: 9px;
       padding: 0px 7px; 
       font-size: 13px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
       
     }
   }
@@ -67,9 +70,7 @@ const LeftContainer = styled(FlexBox)`
 
 const List = styled((props) => (
   <div {...props}>
-    <CircleSpin
-      spinning={props.isLoading}
-    >
+    <CircleSpin spinning={props.isLoading}>
       {props.city}
       <CommonList dataSource={props.data} />
     </CircleSpin>
@@ -84,6 +85,7 @@ function SearchBusPage({ bpoint }) {
   const history = useHistory();
   const inputEle = useRef();
   const [search, setSearch] = useState("");
+  const [loaded, setLoaded] = useState();
   const [city, setCity] = useState(cityList[0]);
   const [showCitySelector, setShowCitySelector] = useState(false);
 
@@ -120,6 +122,7 @@ function SearchBusPage({ bpoint }) {
               }),
           })
         ),
+        onSuccess: () => setLoaded(true)
     });
   }, [search, city.value, apiAdapter, history]);
 

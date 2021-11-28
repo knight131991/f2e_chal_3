@@ -11,8 +11,13 @@ import logo from "../images/logo-home.png";
 import FlexBox from "../components/FlexBox";
 
 const BGDiv = styled.div`
-  background-image: url(${bgImg});
+  // background-image: url(${bgImg});
   height: 100vh;
+  background-color: radial-gradient(
+    86.64% 87.21% at 14.72% 0%,
+    #414242 0%,
+    #0a0a0b 100%
+  );
   background-size: cover;
 `;
 

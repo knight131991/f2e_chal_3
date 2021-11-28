@@ -2,7 +2,7 @@ import React from "react";
 // import PropTypes from "prop-types";
 import GMapReact from "google-map-react";
 
-function GMap({ steps }) {
+function GMap({ steps, bpoint }) {
   const getPos = (spot, returnText = true) => {
     const {
       StopPosition: { PositionLat, PositionLon },
@@ -13,7 +13,13 @@ function GMap({ steps }) {
   };
 
   return (
-    <div style={{ height: "100%", width: "100%" }}>
+    <div
+      style={{
+        // 如果設定高度設定100%,iphone會無法顯示地圖,尚未了解原因,所以先寫死高度
+        height: bpoint === "xs" ? "calc(100vh - 140px)" : "100%",
+        width: "100%",
+      }}
+    >
       <GMapReact
         yesIWantToUseGoogleMapApiInternals
         bootstrapURLKeys={{ key: "AIzaSyCnBX045s9vhUBtjDAGmdKlHAKIP42ljOI" }}
@@ -111,7 +117,6 @@ function GMap({ steps }) {
           ],
         }}
         onGoogleApiLoaded={({ map, maps }) => {
-
           const start = getPos(steps[0]);
           const end = getPos(steps[steps.length - 1]);
 

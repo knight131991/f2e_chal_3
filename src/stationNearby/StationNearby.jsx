@@ -1,4 +1,4 @@
-import React, { useEffect, useMemo } from "react";
+import React, { useEffect, useMemo, useState } from "react";
 // import PropTypes from "prop-types";
 import queryString from "query-string";
 import { useHistory } from "react-router";
@@ -11,7 +11,6 @@ import FlexBox from "../components/FlexBox";
 import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
 import CircleSpin from "../components/CircleSpin";
-import { useState } from "react/cjs/react.development";
 
 const Container = styled(FlexBox)`
   height: 100%;

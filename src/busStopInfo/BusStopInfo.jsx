@@ -14,6 +14,7 @@ import BusStateDiv from "../components/BusStateDiv";
 import FlexBox from "../components/FlexBox";
 import GMap from "../components/GMap";
 import CircleSpin from "../components/CircleSpin";
+import { ReactComponent as Map } from "../images/map-1.svg";
 
 const StyledBusStateDiv = styled(BusStateDiv)`
   margin-bottom: 14px;
@@ -32,6 +33,10 @@ const Text = styled(FlexBox)`
   width: 100%;
   max-width: 640px;
   margin-bottom: 25px;
+`;
+
+const HiddenMap = styled(Map)`
+  visibility: hidden;
 `;
 
 function BusStopInfo({ bpoint }) {
@@ -103,7 +108,7 @@ function BusStopInfo({ bpoint }) {
     <CircleSpin spinning={isLoading}>
       <NavBarWithTabs
         bpoint={bpoint}
-        customMap={<span />}
+        customMap={showMap && <HiddenMap />}
         onClickMap={() => setShowMap(true)}
       >
         {/* TODO 預期routerInfo只有2個item 但有時後端提供的資料會超過2個 所以先取前兩個 */}
@@ -113,7 +118,7 @@ function BusStopInfo({ bpoint }) {
             tab={<TabTitle>{stops[stops.length - 1].StopName.Zh_tw}</TabTitle>}
           >
             {showMap ? (
-              <GMap steps={stops} />
+              <GMap steps={stops} bpoint={bpoint} />
             ) : (
               <Container align="center">
                 <Text align="flex-end">{`*於 ${count} 秒前更新`}</Text>

@@ -25,9 +25,14 @@ const ListItem = styled(List.Item)`
   }
 `;
 
+const EmptyStr = styled.span`
+  color: #1cc8ee;
+`;
+
 function CommonList(props) {
   return (
     <List
+      locale={{ emptyText: <EmptyStr>沒有符合的內容</EmptyStr> }}
       renderItem={({ onClick = () => {}, title, desc }, id) => (
         <ListItem bg={id % 2} onClick={onClick}>
           <FlexBox>
