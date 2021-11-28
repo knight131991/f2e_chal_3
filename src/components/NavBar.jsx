@@ -10,17 +10,23 @@ const Clickable = styled.span`
   cursor: pointer;
 `;
 
-function NavBar(props) {
+function NavBar({ onClickBack, bpoint, onClickMap, customMap, ...rest }) {
   const history = useHistory();
   const defaultClickBack = useCallback(() => history.goBack(), [history]);
   return (
-    <NavBarContainer row justify="space-between" align="center" {...props}>
+    <NavBarContainer
+      row
+      justify="space-between"
+      align="center"
+      bpoint={bpoint}
+      {...rest}
+    >
       <Clickable>
-        <Back onClick={props.onClickBack || defaultClickBack} />
+        <Back onClick={onClickBack || defaultClickBack} />
       </Clickable>
-      <LogoBtn bpoint={props.bpoint} />
-      <Clickable onClick={props.onClickMap}>
-        {props.customMap ? props.customMap : <Map />}
+      <LogoBtn bpoint={bpoint} />
+      <Clickable onClick={onClickMap}>
+        {customMap ? customMap : <Map />}
       </Clickable>
     </NavBarContainer>
   );

@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import queryString from "query-string";
 import { useHistory } from "react-router";
 import useApiAdapter from "../hooks/useApiAdapter";
+import useBreakPoint from "../hooks/useBreakPoint";
 import axios from "axios";
 import CommonList from "../components/commonList/CommonList";
 import FlexBox from "../components/FlexBox";
@@ -25,7 +26,8 @@ const StationName = styled.span`
   font-size: 16px;
 `;
 
-function StationBusList({ bpoint }) {
+function StationBusList() {
+  const [bpoint] = useBreakPoint();
   const history = useHistory();
   const { apiAdapter: getPTBus, data } = useApiAdapter();
   const { city, stationId, station } = queryString.parse(
@@ -39,7 +41,6 @@ function StationBusList({ bpoint }) {
         `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${city}/PassThrough/Station/${stationId}`
       ),
       mapper: (resp) => {
-        console.log("data", resp.data);
         return resp.data.map(
           ({ RouteName: { Zh_tw }, DestinationStopNameZh }) => ({
             title: Zh_tw,

@@ -155,8 +155,6 @@ function GMap({ steps, bpoint }) {
               destination: end,
             },
             (DirectionsResult, DirectionsStatus) => {
-              console.log("DirectionsResult", DirectionsResult);
-              console.log("DirectionsStatus", DirectionsStatus);
               if (DirectionsStatus === "OK") {
                 directionsDisplay.setDirections(DirectionsResult);
               }

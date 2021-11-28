@@ -3,6 +3,7 @@ import { Button, Input } from "antd";
 import FlexBox from "../components/FlexBox";
 import { GridCol, GridRow } from "../components/grid/Grid";
 import useApiAdapter from "../hooks/useApiAdapter";
+import useBreakPoint from "../hooks/useBreakPoint";
 import axios from "axios";
 import cityList from "../constant/cityList";
 import { useHistory } from "react-router";
@@ -68,11 +69,11 @@ const LeftContainer = styled(FlexBox)`
   margin-right: 42px;
 `;
 
-const List = styled((props) => (
-  <div {...props}>
-    <CircleSpin spinning={props.isLoading}>
-      {props.city}
-      <CommonList dataSource={props.data} />
+const List = styled(({ isLoading, data, city, className }) => (
+  <div className={className}>
+    <CircleSpin spinning={isLoading}>
+      {city}
+      <CommonList dataSource={data} />
     </CircleSpin>
   </div>
 ))`
@@ -81,11 +82,11 @@ const List = styled((props) => (
   height: ${({ bpoint }) => bpoint === "xs" && "calc(100% - 308px - 76px)"};
 `;
 
-function SearchBusPage({ bpoint }) {
+function SearchBusPage() {
+  const [bpoint] = useBreakPoint();
   const history = useHistory();
   const inputEle = useRef();
   const [search, setSearch] = useState("");
-  const [loaded, setLoaded] = useState();
   const [city, setCity] = useState(cityList[0]);
   const [showCitySelector, setShowCitySelector] = useState(false);
 
@@ -122,7 +123,6 @@ function SearchBusPage({ bpoint }) {
               }),
           })
         ),
-        onSuccess: () => setLoaded(true)
     });
   }, [search, city.value, apiAdapter, history]);
 

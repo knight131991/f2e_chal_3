@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import { List } from "antd";
 import FlexBox from "../FlexBox";
 import styled from "styled-components";

@@ -1,6 +1,7 @@
 import React from "react";
 // import PropTypes from "prop-types";
 import { useHistory } from "react-router";
+import useBreakPoint from "../hooks/useBreakPoint";
 import styled from "styled-components";
 import bgImg from "../images/BGImg.png";
 import { ReactComponent as BlueCircle } from "../images/blue-circle.svg";
@@ -78,8 +79,9 @@ const StyledLogo = styled((props) => <img src={logo} alt="logo" {...props} />)`
   ${({ bpoint }) => bpoint === "xs" && "width: 144px; height:60px;"}
 `;
 
-function Home({ bpoint }) {
+function Home() {
   const history = useHistory();
+  const [bpoint] = useBreakPoint();
   return (
     <BGDiv>
       <StyledLogo bpoint={bpoint} />
@@ -91,7 +93,6 @@ function Home({ bpoint }) {
           if (navigator.geolocation) {
             navigator.geolocation.getCurrentPosition(
               ({ coords: { latitude, longitude } }) => {
-                console.log("qqqqq");
                 history.push({
                   pathname: "/nearby-stations",
                   search: `lat=${latitude}&long=${longitude}`,

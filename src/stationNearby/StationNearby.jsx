@@ -3,6 +3,7 @@ import React, { useEffect, useMemo, useState } from "react";
 import queryString from "query-string";
 import { useHistory } from "react-router";
 import useApiAdapter from "../hooks/useApiAdapter";
+import useBreakPoint from "../hooks/useBreakPoint";
 import axios from "axios";
 import CommonList from "../components/commonList/CommonList";
 import cityList from "../constant/cityList";
@@ -50,7 +51,8 @@ const TitleContainer = styled.div`
   position: relative;
 `;
 
-function StationNearby({ bpoint }) {
+function StationNearby() {
+  const [bpoint] = useBreakPoint();
   const history = useHistory();
   const { apiAdapter: getNearbyStations } = useApiAdapter();
   const { apiAdapter: getPTBus } = useApiAdapter();
@@ -85,7 +87,6 @@ function StationNearby({ bpoint }) {
               `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${city}/PassThrough/Station/${stationId}`
             ),
             onSuccess: (routes) => {
-              console.log("data", routes);
               dataSource.push({
                 title,
                 desc: routes.map((route) => route.RouteName.Zh_tw).join(", "),

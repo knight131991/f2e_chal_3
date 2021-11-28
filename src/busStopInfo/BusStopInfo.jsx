@@ -2,6 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 // import PropTypes from "prop-types";
 import queryString from "query-string";
 import useApiAdapter from "../hooks/useApiAdapter";
+import useBreakPoint from "../hooks/useBreakPoint";
 import axios from "axios";
 import { useHistory } from "react-router";
 import { Steps, Tabs } from "antd";
@@ -39,7 +40,8 @@ const HiddenMap = styled(Map)`
   visibility: hidden;
 `;
 
-function BusStopInfo({ bpoint }) {
+function BusStopInfo() {
+  const [bpoint] = useBreakPoint();
   const [count, setCount] = useState(0);
   const [showMap, setShowMap] = useState();
   const {
@@ -49,7 +51,7 @@ function BusStopInfo({ bpoint }) {
   } = useApiAdapter([]);
   const {
     apiAdapter: getEstimatedTime,
-    isLoading: loadingETime,
+    // isLoading: loadPropTypesingETime,
     data: estimatedTime,
   } = useApiAdapter(["", ""]);
   const history = useHistory();
@@ -77,7 +79,7 @@ function BusStopInfo({ bpoint }) {
       ),
       mapper: (resp) => resp.data.map((item) => item.Stops),
       onSuccess: (data) => {
-        if (data.length !== 2) console.error("公車路線資訊不如預期");
+        if (data.length !== 2) console.error("公車路線資訊不如預期", data);
       },
     });
   }, [getRouteInfo, city, route]);

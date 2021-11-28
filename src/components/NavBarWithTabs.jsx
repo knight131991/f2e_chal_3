@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import NavBar from "./NavBar";
 import { Tabs } from "antd";
 import styled from "styled-components";
@@ -35,16 +35,23 @@ const StyledTabs = styled(Tabs)`
   }
 `;
 
-function NavBarWithTabs(props) {
+function NavBarWithTabs({
+  bpoint,
+  onClickBack,
+  onClickMap,
+  customMap,
+  className,
+  ...rest
+}) {
   return (
     <>
       <NavBar
-        bpoint={props.bpoint}
-        onClickMap={props.onClickMap}
-        customMap={props.customMap}
-        onClickBack={props.onClickBack}
+        bpoint={bpoint}
+        onClickMap={onClickMap}
+        customMap={customMap}
+        onClickBack={onClickBack}
       />
-      <StyledTabs {...props} />
+      <StyledTabs bpoint={bpoint} {...rest} />
     </>
   );
 }

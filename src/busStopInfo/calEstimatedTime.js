@@ -1,7 +1,6 @@
 import stopStatusMapper from "../constant/stopStatus";
 
 export default function calEstimatedTime(data = []) {
-  console.log("estimated info", data);
   const direction1 = [];
   const direction2 = [];
   data.forEach((item) => {
@@ -32,11 +31,6 @@ export default function calEstimatedTime(data = []) {
       }
       return pre;
     }, {});
-
-  console.log("公車進站資訊", [
-    convertEstimatedInfo(direction1),
-    convertEstimatedInfo(direction2),
-  ]);
 
   return [convertEstimatedInfo(direction1), convertEstimatedInfo(direction2)];
 }

@@ -1,5 +1,5 @@
 import React from "react";
-import PropTypes from "prop-types";
+// import PropTypes from "prop-types";
 import logo from "../images/logo.svg";
 import { useHistory } from "react-router";
 import styled from "styled-components";
