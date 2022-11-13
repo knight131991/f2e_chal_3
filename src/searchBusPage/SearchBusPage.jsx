@@ -4,7 +4,6 @@ import FlexBox from "../components/FlexBox";
 import { GridCol, GridRow } from "../components/grid/Grid";
 import useApiAdapter from "../hooks/useApiAdapter";
 import useBreakPoint from "../hooks/useBreakPoint";
-import axios from "axios";
 import cityList from "../constant/cityList";
 import { useHistory } from "react-router";
 import CommonList from "../components/commonList/CommonList";
@@ -12,6 +11,7 @@ import LogoBtn from "../components/LogoBtn";
 import styled from "styled-components";
 import useKeyboardItems from "./useKeyboardItems";
 import CircleSpin from "../components/CircleSpin";
+import getTDXAxios from "../utils/getTDXAxios";
 // import PropTypes from 'prop-types'
 
 const Container = styled(FlexBox)`
@@ -101,28 +101,30 @@ function SearchBusPage() {
   const { apiAdapter, isLoading, data } = useApiAdapter([]);
 
   useEffect(() => {
-    apiAdapter({
-      api: axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/Route/City/${
-          city.value
-        }/${encodeURIComponent(search)}`
-      ),
-      mapper: ({ data }) =>
-        data.map(
-          ({
-            DepartureStopNameZh,
-            DestinationStopNameZh,
-            RouteName: { Zh_tw },
-          }) => ({
-            title: Zh_tw,
-            desc: `${DepartureStopNameZh} 往 ${DestinationStopNameZh}`,
-            onClick: () =>
-              history.push({
-                pathname: "/bus-stop-info",
-                search: `city=${city.value}&route=${Zh_tw}`,
-              }),
-          })
+    getTDXAxios().then((axios) => {
+      apiAdapter({
+        api: axios.get(
+          `https://tdx.transportdata.tw/api/basic/v2/Bus/Route/City/${
+            city.value
+          }${search ? `/${encodeURIComponent(search)}` : ""}`
         ),
+        mapper: ({ data }) =>
+          data.map(
+            ({
+              DepartureStopNameZh,
+              DestinationStopNameZh,
+              RouteName: { Zh_tw },
+            }) => ({
+              title: Zh_tw,
+              desc: `${DepartureStopNameZh} 往 ${DestinationStopNameZh}`,
+              onClick: () =>
+                history.push({
+                  pathname: "/bus-stop-info",
+                  search: `city=${city.value}&route=${Zh_tw}`,
+                }),
+            })
+          ),
+      });
     });
   }, [search, city.value, apiAdapter, history]);
 

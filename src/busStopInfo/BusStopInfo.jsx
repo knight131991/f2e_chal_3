@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import queryString from "query-string";
 import useApiAdapter from "../hooks/useApiAdapter";
 import useBreakPoint from "../hooks/useBreakPoint";
-import axios from "axios";
+import getTDXAxios from "../utils/getTDXAxios";
 import { useHistory } from "react-router";
 import { Steps, Tabs } from "antd";
 import calEstimatedTime from "./calEstimatedTime";
@@ -70,27 +70,31 @@ function BusStopInfo() {
   const { Step } = Steps;
 
   const handleGetEstimatedTime = useCallback(() => {
-    getEstimatedTime({
-      api: axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/EstimatedTimeOfArrival/City/${city}/${encodeURIComponent(
-          route
-        )}`
-      ),
-      mapper: (resp) => calEstimatedTime(resp.data),
+    getTDXAxios().then((axios) => {
+      getEstimatedTime({
+        api: axios.get(
+          `https://tdx.transportdata.tw/api/basic/v2/Bus/EstimatedTimeOfArrival/City/${city}/${encodeURIComponent(
+            route
+          )}`
+        ),
+        mapper: (resp) => calEstimatedTime(resp.data),
+      });
     });
   }, [getEstimatedTime, city, route]);
 
   useEffect(() => {
-    getRouteInfo({
-      api: axios.get(
-        `https://ptx.transportdata.tw/MOTC/v2/Bus/StopOfRoute/City/${city}/${encodeURIComponent(
-          route
-        )}`
-      ),
-      mapper: (resp) => resp.data.map((item) => item.Stops),
-      onSuccess: (data) => {
-        if (data.length !== 2) console.error("公車路線資訊不如預期", data);
-      },
+    getTDXAxios().then((axios) => {
+      getRouteInfo({
+        api: axios.get(
+          `https://tdx.transportdata.tw/api/basic/v2/Bus/StopOfRoute/City/${city}/${encodeURIComponent(
+            route
+          )}`
+        ),
+        mapper: (resp) => resp.data.map((item) => item.Stops),
+        onSuccess: (data) => {
+          if (data.length !== 2) console.error("公車路線資訊不如預期", data);
+        },
+      });
     });
   }, [getRouteInfo, city, route]);
 
